@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Features
+{% endblock %}
+
+{% block body %}
+<main class="px-3">
+    <h1 class="fs-3">Today - is the best DAY</h1>
+    <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center justify-content-center">
+        <div class="list-group">
+            <!--&lt;!&ndash;          <svg class="bi me-1" width="1em" height="1em"><use xlink:href="#calendar-event"></use></svg>&ndash;&gt;-->
+            {% for el in group_tasks %}
+            {% if el.today == True %}
+            <label class="list-group-item d-flex gap-3">
+                <form action="/{{ el.id }}/complete" class="align-self-center" method="POST">
+                    <input name="complete" type="hidden" value="{{ el.complete }}">
+                    <button class="form-check-input d-flex align-items-center justify-content-center rounded-1 fs-5"
+                            type="submit">
+                        {% if el.complete %}
+                        <i class="muted fa fa-check-square align-self-center fs-4"></i>
+                        {% else %}
+                        <i class="fa fa-square align-self-center fs-4"></i>
+                        {% endif %}
+                    </button>
+                </form>
+                <span class="pt-1 form-checked-content text-start w-75 {% if el.complete %} muted {% endif %}">
+        <strong class="">{{ el.task }}</strong>
+        <small class="d-block text-body-secondary text-start">
+            {{ el.time }}
+        </small>
+    </span>
+                <a class="btn btn-outline-dark btn-sm ms-auto form-checked-content d-flex align-items-center  {% if el.complete %} d-none {% endif %}"
+                   href="/{{ el.id }}/set-next">
+                    <span class="mx-auto">Set to next</span>
+                </a>
+                <a class="btn btn-outline-dark btn-sm d-flex align-items-center ms-auto" href="/{{ el.id }}/del">
+                    <span class="mx-auto">Delete</span>
+                </a>
+            </label>
+
+            {% endif %}
+            {% endfor %}
+
+            <a class="list-group-item d-flex gap-3 bg-body-tertiary p-3" href="/add-task/today">
+                <span class="pt-1 mx-auto form-checked-content text-start" contenteditable="true"><strong>Add new task...</strong></span>
+            </a>
+        </div>
+    </div>
+
+    <h1 class="fs-3">Tomorrow</h1>
+    <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-4 align-items-center justify-content-center">
+        <div class="list-group">
+
+            {% for el in group_tasks %}
+            {% if el.today == False %}
+            <label class="list-group-item d-flex gap-3">
+                <form action="/{{ el.id }}/complete" class="align-self-center" method="POST">
+                    <input name="complete" type="hidden" value="{{ el.complete }}">
+                    <button class="form-check-input d-flex align-items-center justify-content-center rounded-1 fs-5"
+                            type="submit">
+                        {% if el.complete %}
+                        <i class="fa fa-check-square align-self-center muted fs-4"></i>
+                        {% else %}
+                        <i class="fa fa-square align-self-center fs-4"></i>
+                        {% endif %}
+                    </button>
+                </form>
+                <span class="pt-1 form-checked-content text-start w-75 text-truncate {% if el.complete %} muted {% endif %}">
+                                    <strong class="text-truncate">{{ el.task }}</strong>
+                                    <small class="d-block text-body-secondary text-start">
+                                     {{ el.time }}
+                                    </small>
+                                  </span>
+                <a class="btn btn-outline-dark btn-sm ms-auto form-checked-content d-flex align-items-center"
+                   href="/{{ el.id }}/del"><span
+                        class="mx-auto">Delete</span></a>
+
+            </label>
+
+            {% endif %}
+            {% endfor %}
+
+            <a class="list-group-item d-flex gap-3 bg-body-tertiary p-3" href="/add-task/tomorrow">
+
+                <span class="pt-1 mx-auto form-checked-content text-start" contenteditable="true"><strong>Add new task...</strong></span>
+            </a>
+
+        </div>
+    </div>
+</main>
+{% endblock %}

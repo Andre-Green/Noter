@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+404 Not found
+{% endblock %}
+
+{% block body %}
+    <main class="px-3">
+        <h1 class="p-3">404! Page not found.</h1>
+        <p class="lead"><a href="{{ url_for('index') }}" class="btn btn-lg btn-light fw-bold border-white bg-white">Return to main page</a></p>
+    </main>
+{% endblock %}

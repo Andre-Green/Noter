@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block body %}
+<div class="modal modal-sheet position-static d-block p-4 py-md-5" id="modalLogin" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0 justify-content-center">
+                <h1 class="fw-bold mb-0 fs-2 text-dark">Please, Login</h1>
+
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                {% for cat, msg in get_flashed_messages(True) %}
+                <small class="alert {{cat}} d-block">
+                    {{ msg | safe }}
+                </small>
+                {% endfor %}
+                <form action="/login" class="" method="post">
+                    <div class="form-floating mb-3 text-muted">
+                        <input class="form-control rounded-3" id="floatingInput" name='email' placeholder="name@example.com"
+                               required type="email">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating mb-3 text-muted">
+                        <input class="form-control rounded-3" id="floatingPassword" name='password' placeholder="Password"
+                               required type="password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <button class="w-100 mb-3 btn btn-lg rounded-3 btn-success" type="submit">Login</button>
+                    <small class="text-body-secondary">Don't have account? <a href="/sign-up">Sing up for free.</a>
+                    </small>
+
+                    <!--          <hr class="my-4">-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block body %}
+    <main class="px-3">
+        <h1 class="p-3">  Welcome, {{ name }}!</h1>
+        <p class="lead"><a href="{{ url_for('logout') }}" class="btn btn-lg btn-light fw-bold border-white bg-white">LOGOUT!</a></p>
+    </main>
+{% endblock %}
